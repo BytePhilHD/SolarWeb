@@ -1,0 +1,136 @@
+{
+    "menu": {
+        "name": [
+            "Live",
+            "Serial / Control",
+            "Settings",
+            "-",
+            "REST API",
+            "-",
+            "Update",
+            "System",
+            "-",
+            "Documentation"
+        ],
+        "link": [
+            "/live",
+            "/serial",
+            "/setup",
+            null,
+            "/api",
+            null,
+            "/update",
+            "/system",
+            null,
+            "https://ahoydtu.de"
+        ],
+        "trgt": [
+            null,
+            null,
+            null,
+            null,
+            "_blank",
+            null,
+            null,
+            null,
+            null,
+            "_blank"
+        ]
+    },
+    "generic": {
+        "version": "0.5.66",
+        "build": "f8fe044",
+        "wifi_rssi": -82,
+        "ts_uptime": 179960,
+        "esp_type": "ESP8266"
+    },
+    "inverter": [
+        {
+            "enabled": true,
+            "name": "HM-700",
+            "channels": 2,
+            "power_limit_read": 100,
+            "last_alarm": "Inverter start",
+            "ts_last_success": 1679407619,
+            "ch": [
+                [
+                    235.6,
+                    0.74,
+                    174,
+                    49.99,
+                    1,
+                    28.2,
+                    18.016,
+                    1553,
+                    182.2,
+                    95.499,
+                    0
+                ],
+                [
+                    30.7,
+                    2.89,
+                    88.9,
+                    767,
+                    8.949,
+                    22.225
+                ],
+                [
+                    30.8,
+                    3.03,
+                    93.3,
+                    786,
+                    9.067,
+                    23.325
+                ]
+            ],
+            "ch_names": [
+                "AC",
+                "",
+                ""
+            ]
+        }
+    ],
+    "refresh_interval": 30,
+    "ch0_fld_units": [
+        "V",
+        "A",
+        "W",
+        "Hz",
+        "",
+        "°C",
+        "kWh",
+        "Wh",
+        "W",
+        "%",
+        "var"
+    ],
+    "ch0_fld_names": [
+        "U_AC",
+        "I_AC",
+        "P_AC",
+        "F_AC",
+        "PF_AC",
+        "Temp",
+        "YieldTotal",
+        "YieldDay",
+        "P_DC",
+        "Efficiency",
+        "Q_AC"
+    ],
+    "fld_units": [
+        "V",
+        "A",
+        "W",
+        "Wh",
+        "kWh",
+        "%"
+    ],
+    "fld_names": [
+        "U_DC",
+        "I_DC",
+        "P_DC",
+        "YieldDay",
+        "YieldTotal",
+        "Irradiation"
+    ]
+}
