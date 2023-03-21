@@ -40,11 +40,15 @@ public class RestAPI {
             // 7 - YieldDay
             // 9 - Efficieny
 
+            /*
             System.out.println("Leistung Gesamt: " + liveData[2]);
             System.out.println("Spannung: " + liveData[0]);
             System.out.println("Temperatur: " + liveData[5]);
             System.out.println("KWh Total: " + liveData[6]);
             System.out.println("--------------------------------");
+             */
+            liveData[7] = liveData[7].substring(0, 1) + "," + liveData[7].substring(1);         // Umformatierung von Wh in KWh
+            System.out.println("Got Update!");
 
             data = liveData;
 

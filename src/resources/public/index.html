@@ -8,17 +8,20 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/Nunito.css">
     <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css">
 </head>
 
-<body id="page-top" style="background: var(--bs-indigo);">
+<body id="page-top" style="background: var(--bs-gray-900);">
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper" style="background: rgb(47,52,56);">
             <div id="content" style="color: var(--bs-indigo);">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top" style="background: var(--bs-gray-dark);">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                    <div class="container-fluid">
                         <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                         </form>
+                        <div class="col-auto"><i class="fa fa-server" id="logo_server" style="color: var(--bs-gray-dark);font-size: 37px;"></i></div>
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -116,10 +119,27 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2" style="width: 492px;">
-                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Aktuelle Einspeisung</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="p_ac">000</span><span style="width: 4px;margin: 11px;">Watt</span></div>
+                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-blue);">Aktuelle Einspeisung</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="p_ac">000</span><span style="width: 4px;margin: 5px;color: var(--bs-gray-dark);">Watt</span></div>
                                         </div>
-                                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                        <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightning" style="color: var(--bs-yellow);font-size: 37px;">
+                                                <path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5zM6.374 1 4.168 8.5H7.5a.5.5 0 0 1 .478.647L6.78 13.04 11.478 7H8a.5.5 0 0 1-.474-.658L9.306 1H6.374z"></path>
+                                            </svg></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-start-primary py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-2" style="width: 492px;">
+                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-cyan);">Heute Erzeugt</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 5px;color: var(--bs-gray-dark);">KWh</span></div>
+                                        </div>
+                                        <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" style="color: var(--bs-yellow);font-size: 37px;">
+                                                <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
+                                            </svg></div>
                                     </div>
                                 </div>
                             </div>
@@ -129,10 +149,12 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Earnings (annual)</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>$215,000</span></div>
+                                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-success);">Insgesamt eingespeist</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_total">0000</span><span style="width: 4px;margin: 7px;color: var(--bs-gray-dark);">KWh</span></div>
                                         </div>
-                                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                        <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" style="color: var(--bs-yellow);font-size: 37px;">
+                                                <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"></path>
+                                            </svg></div>
                                     </div>
                                 </div>
                             </div>
@@ -345,17 +367,29 @@ let ws;
         setInterval(refresh, 1000);
 
         ws.onmessage = messageEvent => {
-
+            document.getElementById("logo_server").style.color = "var(--bs-success)";
             let wsinput = messageEvent.data;
             if (wsinput.includes("P_AC")) {
                 wsinput = wsinput.replace("P_AC: ", "");
                 document.getElementById("p_ac").innerHTML = wsinput;
             }
-            else if (wsinput.includes("Song-Artists: ")) {
-                wsinput = wsinput.replace("Song-Artists: ", "");
-                document.getElementById("song-artists").innerHTML = wsinput;
+            else if (wsinput.includes("Yield_Day: ")) {
+                wsinput = wsinput.replace("Yield_Day: ", "");
+                document.getElementById("yield_day").innerHTML = wsinput;
+            }
+            else if (wsinput.includes("Yield_Total: ")) {
+                wsinput = wsinput.replace("Yield_Total: ", "");
+                document.getElementById("yield_total").innerHTML = wsinput;
             }
 
+        }
+        ws.onclose = closeEvent => {
+            document.getElementById("logo_server").style.color = "var(--bs-danger)";
+            setupWebSocket();
+        }
+        ws.onerror = errorEvent => {
+            document.getElementById("logo_server").style.color = "var(--bs-danger)";
+            setupWebSocket();
         }
 
     }
@@ -363,7 +397,6 @@ let ws;
     function refresh() {
         ws.send("refresh");
     }
-
 
 
 </script>

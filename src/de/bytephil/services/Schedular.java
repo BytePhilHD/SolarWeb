@@ -11,11 +11,12 @@ public class Schedular {
     public static void startSchedular() {
         RestAPI.main();
         try {
-            Thread.sleep(5000);
+            Thread.sleep(5000);     // TODO Zeit auch erhöhen auf 15 oder 30 Sek
             startSchedular();
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            startSchedular();
         }
     }
 }
