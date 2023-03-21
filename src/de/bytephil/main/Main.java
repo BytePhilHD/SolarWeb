@@ -2,7 +2,6 @@ package de.bytephil.main;
 
 import de.bytephil.enums.MessageType;
 import de.bytephil.services.RestAPI;
-import de.bytephil.services.RestAPITEST;
 import de.bytephil.utils.Console;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
@@ -12,8 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        RestAPITEST.main();
-        // RestAPI.main();
+        RestAPI.main();
       //  new Main().StartApp();
 
     }

@@ -1,69 +1,95 @@
 package de.bytephil.services;
 
-import java.net.HttpURLConnection;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Scanner;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class RestAPI {
 
-    public static void main() {
+    public static String[] main() {
+        String uri = "http://192.168.178.161/api/live";
+        String[] data = new String[10];
+
         try {
+            // make the GET request
+            URLConnection request = new URL(uri).openConnection();
+            request.connect();
+            InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
 
-            URL url = new URL("http://192.168.178.161/api/record/live");
+            // map to GSON objects
+            JsonObject root = new JsonParser().parse(inputStreamReader).getAsJsonObject();
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
+            JsonObject inverter = root.getAsJsonArray("inverter").get(0).getAsJsonObject();
 
-            //Getting the response code
-            int responsecode = conn.getResponseCode();
+            String chData = inverter.get("ch").toString().replace("[[", "");
+            data = chData.split(",");
+            //
+            // Stellen und Werte
+            // 0 - U_AC
+            // 1 - I_AC
+            // 2 - P_AC
+            // 5 - Temp
+            // 6 - YieldTotal
+            // 7 - YieldDay
+            // 9 - Efficieny
 
-            if (responsecode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responsecode);
-            } else {
+            System.out.println(data[2]);
 
-                String inline = "";
-                Scanner scanner = new Scanner(url.openStream());
 
-                //Write all the JSON data into a string using a scanner
-                while (scanner.hasNext()) {
-                    inline += scanner.nextLine();
-                }
-
-                //Close the scanner
-                scanner.close();
-
-                //Using the JSON simple library parse the string into a json object
-                JSONParser parse = new JSONParser();
-                JSONObject data_obj = (JSONObject) parse.parse(inline);
-
-                System.out.println(data_obj.toJSONString());
-                //Get the required object from the above created object
-                JSONObject obj = (JSONObject) data_obj.get("Global");
-
-                //Get the required data using its key
-                System.out.println(obj.get("TotalRecovered"));
-
-                JSONArray arr = (JSONArray) data_obj.get("Countries");
-
-                for (int i = 0; i < arr.size(); i++) {
-
-                    JSONObject new_obj = (JSONObject) arr.get(i);
-
-                    if (new_obj.get("Slug").equals("albania")) {
-                        System.out.println("Total Recovered: " + new_obj.get("TotalRecovered"));
-                        break;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+        return data;
+    }
 }
+/*
+
+    public static List<String> main() {
+        String uri = "http://192.168.178.161/api/live";
+        List<String> hrefs = new ArrayList<>();
+
+        try {
+            // make the GET request
+            URLConnection request = new URL(uri).openConnection();
+            request.connect();
+            InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
+
+            // map to GSON objects
+            JsonElement root = new JsonParser().parse(inputStreamReader);
+
+            System.out.println(root.toString());
+            // traverse the JSON data
+            JsonArray items = root
+                    .getAsJsonObject()
+                    .get("collection").getAsJsonObject()
+                    .get("items").getAsJsonArray();
+
+            // flatten nested arrays
+            JsonArray links = new JsonArray();
+            items.forEach(item -> links.addAll(root
+                    .getAsJsonObject()
+                    .get("inverter")
+                    .getAsJsonArray()));
+
+            // filter links with "href" properties
+            links.forEach(link -> {
+                JsonObject linkObject = link.getAsJsonObject();
+                String relString = linkObject.get("ch").getAsString();
+
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return hrefs;
+    }
+ */
