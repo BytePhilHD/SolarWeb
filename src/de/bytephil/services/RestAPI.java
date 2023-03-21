@@ -47,8 +47,11 @@ public class RestAPI {
             System.out.println("KWh Total: " + liveData[6]);
             System.out.println("--------------------------------");
              */
+            liveData[0] = liveData[0].replace(".", ",");
+            liveData[2] = liveData[2].replace(".", ",");
+            liveData[6] = liveData[6].replace(".", ",");                                 // Ändern von . zu , (18.300 KWh => 18,300 KWh)
             liveData[7] = liveData[7].substring(0, 1) + "," + liveData[7].substring(1);         // Umformatierung von Wh in KWh
-            System.out.println("Got Update!");
+
 
             data = liveData;
 

@@ -135,7 +135,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2" style="width: 492px;">
                                             <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-cyan);">Heute Erzeugt</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 5px;color: var(--bs-gray-dark);">KWh</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 5px;color: var(--bs-gray-dark);">kWh</span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" style="color: var(--bs-yellow);font-size: 37px;">
                                                 <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
@@ -150,7 +150,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-success);">Insgesamt eingespeist</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_total">0000</span><span style="width: 4px;margin: 7px;color: var(--bs-gray-dark);">KWh</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_total">0000</span><span style="width: 4px;margin: 7px;color: var(--bs-gray-dark);">kWh</span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" style="color: var(--bs-yellow);font-size: 37px;">
                                                 <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"></path>
@@ -358,45 +358,45 @@
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a><script>
-window.onload = setupWebSocket;
-let ws;
-
-    function setupWebSocket() {
-        ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/main");
+        window.onload = setupWebSocket;
+        let ws;
 
         setInterval(refresh, 1000);
 
-        ws.onmessage = messageEvent => {
-            document.getElementById("logo_server").style.color = "var(--bs-success)";
-            let wsinput = messageEvent.data;
-            if (wsinput.includes("P_AC")) {
-                wsinput = wsinput.replace("P_AC: ", "");
-                document.getElementById("p_ac").innerHTML = wsinput;
+        function setupWebSocket() {
+            ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/main");
+
+            ws.onmessage = messageEvent => {
+                document.getElementById("logo_server").style.color = "var(--bs-success)";
+                let wsinput = messageEvent.data;
+                if (wsinput.includes("P_AC")) {
+                    wsinput = wsinput.replace("P_AC: ", "");
+                    document.getElementById("p_ac").innerHTML = wsinput;
+                } else if (wsinput.includes("Yield_Day: ")) {
+                    wsinput = wsinput.replace("Yield_Day: ", "");
+                    document.getElementById("yield_day").innerHTML = wsinput;
+                } else if (wsinput.includes("Yield_Total: ")) {
+                    wsinput = wsinput.replace("Yield_Total: ", "");
+                    document.getElementById("yield_total").innerHTML = wsinput;
+                }
+
             }
-            else if (wsinput.includes("Yield_Day: ")) {
-                wsinput = wsinput.replace("Yield_Day: ", "");
-                document.getElementById("yield_day").innerHTML = wsinput;
+            ws.onclose = closeEvent => {
+                document.getElementById("logo_server").style.color = "var(--bs-danger)";
+                setupWebSocket();
             }
-            else if (wsinput.includes("Yield_Total: ")) {
-                wsinput = wsinput.replace("Yield_Total: ", "");
-                document.getElementById("yield_total").innerHTML = wsinput;
+            ws.onerror = errorEvent => {
+                document.getElementById("logo_server").style.color = "var(--bs-danger)";
+                setupWebSocket();
             }
 
-        }
-        ws.onclose = closeEvent => {
-            document.getElementById("logo_server").style.color = "var(--bs-danger)";
-            setupWebSocket();
-        }
-        ws.onerror = errorEvent => {
-            document.getElementById("logo_server").style.color = "var(--bs-danger)";
-            setupWebSocket();
+
         }
 
-    }
-    // refresh function which gets timed every 1000 ms (on the top)
-    function refresh() {
-        ws.send("refresh");
-    }
+        // refresh function which gets timed every 1000 ms (on the top)
+        function refresh() {
+            ws.send("refresh");
+        }
 
 
 </script>
