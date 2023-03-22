@@ -1,11 +1,13 @@
 package de.bytephil.main;
 
 import de.bytephil.enums.MessageType;
+import de.bytephil.services.LogService;
 import de.bytephil.services.RestAPI;
 import de.bytephil.services.Schedular;
 import de.bytephil.utils.Console;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import org.apache.commons.logging.Log;
 
 import java.util.Timer;
 import java.util.concurrent.Executors;
@@ -17,6 +19,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        try {
+            LogService.logFileCreation();
+        } catch(Exception e1) {}
 
         new Main().StartApp();
         Schedular.startSchedular();
@@ -50,6 +56,6 @@ public class Main {
             });
         });
     }
-    //  + " (" + (wsinput.replace(",", ".") *0.3) + ")"oo
+    // TODO Um 18:00 am Tag erzeugte daten abspeichern
 
 }
