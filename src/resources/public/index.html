@@ -21,7 +21,7 @@
                         <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                         </form>
-                        <div class="col-auto"><i class="fa fa-server" id="logo_server" style="color: var(--bs-gray-dark);font-size: 37px;"></i></div>
+                        <div class="col-auto"><i class="fa fa-server" id="logo_server" style="color: var(--bs-gray-dark);font-size: 37px;"></i><span id="server_time" style="font-size: 15.2px;color: var(--bs-gray-600);margin: 7px;height: 0px;">00:00</span></div>
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -135,7 +135,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2" style="width: 492px;">
                                             <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-cyan);">Heute Erzeugt</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 6px;color: var(--bs-gray-dark);">kWh<span id="yield_day_rev" style="width: 4px;margin: 29px;color: var(--bs-gray-500);">(0€)</span></span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="margin: 6px;color: var(--bs-gray-dark);">kWh</span><span id="yield_day_rev" style="width: 33px;margin: 2px;color: var(--bs-gray-500);">(0€)</span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" style="color: var(--bs-yellow);font-size: 37px;">
                                                 <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
@@ -150,7 +150,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-success);">Insgesamt eingespeist</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_total">0000</span><span style="width: 4px;margin: 7px;color: var(--bs-gray-dark);">kWh</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_total">0000</span><span style="width: 4px;margin: 7px;color: var(--bs-gray-dark);">kWh</span><span id="yield_total_rev" style="width: 33px;margin: 2px;color: var(--bs-gray-500);">(0€)</span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" style="color: var(--bs-yellow);font-size: 37px;">
                                                 <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"></path>
@@ -368,6 +368,9 @@
 
             ws.onmessage = messageEvent => {
                 document.getElementById("logo_server").style.color = "var(--bs-success)";
+                var date = new Date();
+                document.getElementById("server_time").innerHTML = date.toLocaleTimeString();
+
                 let wsinput = messageEvent.data;
                 if (wsinput.includes("P_AC")) {
                     wsinput = wsinput.replace("P_AC: ", "");
@@ -375,9 +378,11 @@
                 } else if (wsinput.includes("Yield_Day: ")) {
                     wsinput = wsinput.replace("Yield_Day: ", "");
                     document.getElementById("yield_day").innerHTML = wsinput;
+                    document.getElementById("yield_day_rev").innerHTML = " (" + (wsinput.replace(",", ".")*0.3).toString().substring(0, 4) + " €)";
                 } else if (wsinput.includes("Yield_Total: ")) {
                     wsinput = wsinput.replace("Yield_Total: ", "");
                     document.getElementById("yield_total").innerHTML = wsinput;
+                    document.getElementById("yield_total_rev").innerHTML = " (" + (wsinput.replace(",", ".")*0.3).toString().substring(0, 4) + " €)";
                 }
 
             }
@@ -389,15 +394,12 @@
                 document.getElementById("logo_server").style.color = "var(--bs-danger)";
                 setupWebSocket();
             }
-
-
         }
 
         // refresh function which gets timed every 1000 ms (on the top)
         function refresh() {
             ws.send("refresh");
         }
-
 
 </script>
     </div>
