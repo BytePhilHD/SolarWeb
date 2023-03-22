@@ -135,7 +135,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2" style="width: 492px;">
                                             <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 15.2px;color: var(--bs-cyan);">Heute Erzeugt</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0" style="width: 167px;"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 5px;color: var(--bs-gray-dark);">kWh</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span id="yield_day" style="color: var(--bs-black);">0000</span><span style="width: 4px;margin: 6px;color: var(--bs-gray-dark);">kWh<span id="yield_day_rev" style="width: 4px;margin: 29px;color: var(--bs-gray-500);">(0€)</span></span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" style="color: var(--bs-yellow);font-size: 37px;">
                                                 <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
@@ -361,7 +361,7 @@
         window.onload = setupWebSocket;
         let ws;
 
-        setInterval(refresh, 1000);
+        setInterval(refresh, 5000);
 
         function setupWebSocket() {
             ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/main");

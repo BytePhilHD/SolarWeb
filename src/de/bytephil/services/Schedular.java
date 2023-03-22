@@ -15,8 +15,8 @@ public class Schedular {
             startSchedular();
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
             startSchedular();
+            e.printStackTrace();
         }
     }
 }

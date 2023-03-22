@@ -34,7 +34,7 @@ public class Main {
         app.ws("/main", ws -> {
             ws.onConnect(ctx -> {
                 Console.printout("User connected to main websocket. (IP: " + ctx.session.getRemoteAddress().getAddress().toString().replace("/", "") + ")", MessageType.INFO);
-                ctx.send("P_AC: " + RestAPI.data[0]);
+                ctx.send("P_AC: " + RestAPI.data[2]);
                 ctx.send("Yield_Total: " + RestAPI.data[6]);
                 ctx.send("Yield_Day: " + RestAPI.data[7]);
             });
@@ -43,12 +43,13 @@ public class Main {
             });
             ws.onMessage(ctx -> {
                if (ctx.message().equals("refresh")) {
-                   ctx.send("P_AC: " + RestAPI.data[0]);
+                   ctx.send("P_AC: " + RestAPI.data[2]);
                    ctx.send("Yield_Total: " + RestAPI.data[6]);
                    ctx.send("Yield_Day: " + RestAPI.data[7]);
                }
             });
         });
     }
+    //  + " (" + (wsinput.replace(",", ".") *0.3) + ")"oo
 
 }
