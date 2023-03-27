@@ -58,7 +58,6 @@ public class RestAPI {
                 liveData[7] = liveData[7].substring(0, 1) + "," + liveData[7].substring(1);     // Bei 4 Stellen wird ein , an zweiter Stelle gesetzt (1000 Wh -> 1,000 kWH)
             }
 
-
             data = liveData;
 
         } catch (IOException e) {
@@ -67,46 +66,3 @@ public class RestAPI {
 
     }
 }
-/*
-
-    public static List<String> main() {
-        String uri = "http://192.168.178.161/api/live";
-        List<String> hrefs = new ArrayList<>();
-
-        try {
-            // make the GET request
-            URLConnection request = new URL(uri).openConnection();
-            request.connect();
-            InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
-
-            // map to GSON objects
-            JsonElement root = new JsonParser().parse(inputStreamReader);
-
-            System.out.println(root.toString());
-            // traverse the JSON data
-            JsonArray items = root
-                    .getAsJsonObject()
-                    .get("collection").getAsJsonObject()
-                    .get("items").getAsJsonArray();
-
-            // flatten nested arrays
-            JsonArray links = new JsonArray();
-            items.forEach(item -> links.addAll(root
-                    .getAsJsonObject()
-                    .get("inverter")
-                    .getAsJsonArray()));
-
-            // filter links with "href" properties
-            links.forEach(link -> {
-                JsonObject linkObject = link.getAsJsonObject();
-                String relString = linkObject.get("ch").getAsString();
-
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return hrefs;
-    }
- */

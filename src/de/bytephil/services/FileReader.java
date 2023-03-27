@@ -4,7 +4,7 @@ import java.io.*;
 
 public class FileReader {
 
-    public void readFile() throws IOException {
+    public static void readFile() throws IOException {
         String fileName = "logs/log.txt";
         File file = new File(fileName);
         FileInputStream fis = new FileInputStream(file);

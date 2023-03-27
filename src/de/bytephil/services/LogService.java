@@ -17,7 +17,7 @@ public class LogService {
         }
     }
 
-    public void writetoFile(String write) throws IOException {
+    public static void writetoFile(String write) throws IOException {
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         FileWriter fr = new FileWriter(new File("logs/log.txt"), true);
         BufferedWriter br = new BufferedWriter(fr);
