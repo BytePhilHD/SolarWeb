@@ -50,7 +50,13 @@ public class RestAPI {
             liveData[0] = liveData[0].replace(".", ",");
             liveData[2] = liveData[2].replace(".", ",");
             liveData[6] = liveData[6].replace(".", ",");                                 // Ändern von . zu , (18.300 KWh => 18,300 KWh)
-            liveData[7] = liveData[7].substring(0, 1) + "," + liveData[7].substring(1);         // Umformatierung von Wh in KWh
+
+            // Umformatierung von Wh in KWh
+            if (liveData[7].length() < 4) {
+                liveData[7] = "0," + liveData[7];        // Wenn es unter einer Kilowattstudne ist, wird ein 0, davor gesetzt
+            } else {
+                liveData[7] = liveData[7].substring(0, 1) + "," + liveData[7].substring(1);     // Bei 4 Stellen wird ein , an zweiter Stelle gesetzt (1000 Wh -> 1,000 kWH)
+            }
 
 
             data = liveData;
