@@ -359,6 +359,7 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a><script>
         window.onload = setupWebSocket;
+        window.onreset = setupWebSocket;
         let ws;
 
         setInterval(refresh, 5000);
@@ -392,7 +393,6 @@
             }
             ws.onerror = errorEvent => {
                 document.getElementById("logo_server").style.color = "var(--bs-danger)";
-                setupWebSocket();
             }
         }
 

@@ -1,7 +1,6 @@
 package de.bytephil.services;
 
 import de.bytephil.enums.MessageType;
-import org.apache.commons.logging.Log;
 
 import de.bytephil.utils.Console;
 
@@ -9,9 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class Schedular {
 
@@ -22,13 +18,8 @@ public class Schedular {
         try {
             Thread.sleep(5000);
 
-            /*
-            String[] liveData = RestAPI.data;
-            new LogService().writetoFile("Leistung Gesamt: " + liveData[2]);
-            new LogService().writetoFile("KWh Total: " + liveData[6]);
-
-             */
             saveDayData();
+            FileReader.readFile();
             startSchedular();
         } catch (InterruptedException | IOException e) {
             startSchedular();
@@ -52,9 +43,3 @@ public class Schedular {
     }
 
 }
-/*
-            System.out.println("Leistung Gesamt: " + liveData[2]);
-            System.out.println("Spannung: " + liveData[0]);
-            System.out.println("Temperatur: " + liveData[5]);
-            System.out.println("KWh Total: " + liveData[6]);
- */
