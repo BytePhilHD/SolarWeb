@@ -56,6 +56,5 @@ public class Main {
             });
         });
     }
-    // TODO Um 18:00 am Tag erzeugte daten abspeichern
 
 }

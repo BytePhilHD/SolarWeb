@@ -9,8 +9,5 @@
         <module name="SolarWeb" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SolarWeb" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -32,7 +32,7 @@ public class Schedular {
         Date currentDate = new Date();
         int wh = Integer.parseInt(RestAPI.data[7].replace(",", ""));
 
-        if (currentDate.getHours() == 18) {
+        if (currentDate.getHours() == 19) {
             if (lastSaved == null || currentDate.getDate() != lastSaved.getDate()) {
 
                 LogService.writetoFile("WH_TODAY: " + wh);
