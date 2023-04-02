@@ -17,7 +17,6 @@ public class Schedular {
         RestAPI.main();
         try {
             Thread.sleep(5000);
-
             saveDayData();
             FileReader.readFile();
             startSchedular();
