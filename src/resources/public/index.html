@@ -491,7 +491,7 @@
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     <script>
 
-        var earningstest = 1000;
+        var earnings = [0, 250, 5000, 1000, 10000, 150000, 0, 18000];
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -501,7 +501,7 @@
                 datasets: [{
                     label: 'Earnings',
                     fill: true,
-                    data: [earningstest, 5000, 1000, 10000, 150000, 0, 18000],
+                    data: earnings,
                     backgroundColor: 'rgba(78, 115, 223, 0.05)',
                     borderColor: 'rgba(78, 115, 223, 1)'
                 }]
@@ -553,6 +553,14 @@
             }
         });
 
+        // Aktualisiere das Diagramm mit neuen Daten
+        function updateChart() {
+            myChart.data.datasets[0].data = earnings;
+            myChart.update();
+        }
+
+
+
 
         window.onload = setupWebSocket;
         let ws;
@@ -581,6 +589,38 @@
                     wsinput = wsinput.replace("Yield_Total: ", "");
                     document.getElementById("yield_total").innerHTML = wsinput;
                     document.getElementById("yield_total_rev").innerHTML = " (" + (wsinput.replace(",", ".") * 0.3).toString().substring(0, 4) + " €)";
+                } else if (wsinput.includes("STATS-")) {
+                    wsinput = wsinput.replace("STATS-", "");
+
+                    if (wsinput.includes("Mo: ")) {
+                        wsinput = wsinput.replace("Mo: ", "");
+                        earnings[0] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("Di: ")) {
+                        wsinput = wsinput.replace("Di: ", "");
+                        earnings[1] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("Mi: ")) {
+                        wsinput = wsinput.replace("Mi: ", "");
+                        earnings[2] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("Do: ")) {
+                        wsinput = wsinput.replace("Do: ", "");
+                        earnings[3] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("Fr: ")) {
+                        wsinput = wsinput.replace("Fr: ", "");
+                        earnings[4] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("Sa: ")) {
+                        wsinput = wsinput.replace("Sa: ", "");
+                        earnings[5] = wsinput;
+                        myChart.update();
+                    } else if (wsinput.includes("So: ")) {
+                        wsinput = wsinput.replace("So: ", "");
+                        earnings[6] = wsinput;
+                        myChart.update();
+                    }
                 }
 
             }
@@ -590,7 +630,6 @@
             }
             ws.onerror = errorEvent => {
                 document.getElementById("logo_server").style.color = "var(--bs-danger)";
-                setupWebSocket();
             }
         }
 

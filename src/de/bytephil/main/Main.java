@@ -52,6 +52,7 @@ public class Main {
                    ctx.send("P_AC: " + RestAPI.data[2]);
                    ctx.send("Yield_Total: " + RestAPI.data[6]);
                    ctx.send("Yield_Day: " + RestAPI.data[7]);
+                   ctx.send("STATS-Mo: 20000");
                }
             });
         });
