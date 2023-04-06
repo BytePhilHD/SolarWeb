@@ -46,7 +46,6 @@ public class FileReader {
             }
         } else {
            // TODO Wenn weniger als 7 Einträge drin sind
-            System.out.println("ERROR");
         }
 
     }

@@ -8,23 +8,27 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Schedular {
 
     public static Date lastSaved = null;
 
     public static void startSchedular() {
-        RestAPI.main();
-        try {
-            Thread.sleep(5000);
-            saveDayData();
-            FileReader.readFile();
-            startSchedular();
-        } catch (InterruptedException | IOException e) {
-            startSchedular();
-            e.printStackTrace();
-
-        }
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    RestAPI.main();
+                    saveDayData();
+             //       FileReader.readFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 0, 5000);
     }
 
     public static void saveDayData() throws IOException {
