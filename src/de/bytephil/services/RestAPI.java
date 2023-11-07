@@ -8,13 +8,15 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import de.bytephil.enums.MessageType;
+import de.bytephil.utils.Console;
 
 public class RestAPI {
 
     public static String[] data = null;
 
     public static void main() {
-        String uri = "http://192.168.178.161/api/live";
+        String uri = "http://192.168.178.161/api/inverter/id/0";
         String[] liveData = new String[10];
 
         try {
@@ -26,9 +28,10 @@ public class RestAPI {
             // map to GSON objects
             JsonObject root = new JsonParser().parse(inputStreamReader).getAsJsonObject();
 
-            JsonObject inverter = root.getAsJsonArray("inverter").get(0).getAsJsonObject();
+           // JsonObject inverter = root.getAsJsonArray("").get(0).getAsJsonObject();
 
-            String chData = inverter.get("ch").toString().replace("[[", "");
+          //  String chData = inverter.get("ch").toString().replace("[[", "");
+            String chData = root.get("ch").toString().replace("[[", "");
             liveData = chData.split(",");
             //
             // Stellen und Werte
@@ -61,7 +64,7 @@ public class RestAPI {
             data = liveData;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Console.printout(e.getMessage(), MessageType.ERROR);
         }
 
     }

@@ -25,7 +25,7 @@ public class Schedular {
                     saveDayData();
              //       FileReader.readFile();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Console.printout(e.getMessage(), MessageType.ERROR);
                 }
             }
         }, 0, 5000);
